@@ -43,17 +43,9 @@ public class MainController {
 	}
 	
 	@GetMapping("/movies")
-		public String moviesList(Model model, String moviesList) {
+		public String moviesList(Model model) {
 		
-		moviesList = "";
-		
-		for (Movie m : getBestMovies()) {
-			
-			moviesList += m.getTitle();
-			
-			moviesList += ", ";
-			
-		}
+		List<Movie> moviesList = getBestMovies();
 		
 		model.addAttribute("moviesList", moviesList);
 		
@@ -80,50 +72,57 @@ public class MainController {
 		}
 
 	@GetMapping("/songs")
-	public String songsList(Model model, String songsList) {
+	public String songsList(Model model) {
 	
-	songsList = "";
-	
-	for (Song s : getBestSongs()) {
-		
-		songsList += s.getTitle();
-		
-		songsList += ", ";
-		
-	}
+	List<Song> songsList = getBestSongs();
 	
 	model.addAttribute("songsList", songsList);
 	
 	return "songs";
+		
 	}
-	
+
 	@GetMapping("/movies/{id}")
 	public String showMovie(Model model, @PathVariable int id) {
 		
-		List<Movie> movies = getBestMovies();
-		
-		Movie movie = movies.get(id);
-		
-		model.addAttribute("id", id);
-		
-		model.addAttribute("movie", movie);
-		
-		return "showMovie";
-	}
+        Movie movie = null;
+        
+        for (Movie m : getBestMovies()) {
+            
+            if (m.getId() == id) {
+                movie = m;    
+            }
+        }
+        
+        if (movie == null) {
+            movie = new Movie(id, "movie not found");
+        }
+        
+        model.addAttribute("movie", movie);
+        
+        return "showMovie";
+    }
 	
 	@GetMapping("/songs/{id}")
 	public String showSong(Model model, @PathVariable int id) {
 		
-		List<Song> songs = getBestSongs();
-		
-		Song song = songs.get(id);
-		
-		model.addAttribute("id", id);
-		
-		model.addAttribute("song", song);
-		
-		return "showSong";
-	}
+        Song song = null;
+        
+        for (Song s : getBestSongs()) {
+            
+            if (s.getId() == id) {
+                song = s;    
+            }
+        }
+        
+        if (song == null) {
+            song = new Song(id, "song not found");
+        }
+        
+        model.addAttribute("song", song);
+        
+        return "showSong";
+    }
 	
 	
 	
