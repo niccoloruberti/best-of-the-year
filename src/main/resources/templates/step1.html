@@ -3,8 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css} "/>
 </head>
 <body>
-	<h1>Besto of the year by [[${name}]]</h1>
+	<!-- header -->
+	<div th:replace="fragments :: header"></div>
+	<!-- main -->
+	<div class="d-flex flex-column align-items-center justify-content-center my-5">
+		<h1>Best of by...</h1>
+			<!-- immagine -->
+		<div class="d-flex flex-column justify-content-center">
+			<div class="border border-black">
+				<img src="https://picsum.photos/400/200">
+			</div>
+			<div class="border border-black d-flex align-items-center justify-content-center">
+				<p class="mb-0 py-3">lorem ipsum</p>
+			</div>
+		</div>
+	</div>
+
+<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>
